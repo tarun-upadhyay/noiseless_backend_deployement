@@ -16,7 +16,7 @@ productRouter.get("/women", async (req, res) => {
     }
   }else if (page_no) {
     if (page_no > 1) {
-      let skips = 2 * (page_no - 1);
+      let skips = 7 * (page_no - 1);
       const products = await WomenModel.find().skip(skips).limit(7);
       res.send(products);
     } else {
@@ -120,7 +120,7 @@ productRouter.get("/men", async (req, res) => {
     }
   }else if (page_no) {
     if (page_no > 1) {
-      let skips = 2 * (page_no - 1);
+      let skips = 7 * (page_no - 1);
       const products = await MenModel.find().skip(skips).limit(7);
       res.send(products);
     } else {
@@ -200,8 +200,8 @@ productRouter.get("/kid", async (req, res) => {
     }
   }else if (page_no) {
     if (page_no > 1) {
-      let skips = 2 * (page_no - 1);
-      const products = await KidModel.find().skip(skips).limit(7);
+      let skips = 7 * (page_no - 1);
+      const products = await KidModel.find({}).skip(skips).limit(7);
       res.send(products);
     } else {
       const products = await KidModel.find().limit(7);
