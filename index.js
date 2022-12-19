@@ -1,6 +1,4 @@
 const express=require("express")
-
-
 const cors = require("cors")
 const {productRouter }  = require("./routes/productRouter")
 const { pr_connection } = require("./config/pr_db")

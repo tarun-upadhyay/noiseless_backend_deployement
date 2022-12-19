@@ -4,19 +4,32 @@ const productRouter = express.Router();
 const { WomenModel, MenModel, KidModel } = require("../models/productModel");
 
 productRouter.get("/women", async (req, res) => {
-  try {
-    if (req.query) {
+  const { page_no } = req.query;
+    if (req.query.title) {
+    try {
       let val = req.query.title;
       val = new RegExp(val);
       const products = await WomenModel.find({ title: val });
       res.send(products);
+    } catch (err) {
+      res.send({ err: "something went wrong" });
+    }
+  }else if (page_no) {
+    if (page_no > 1) {
+      let skips = 2 * (page_no - 1);
+      const products = await WomenModel.find().skip(skips).limit(7);
+      res.send(products);
     } else {
-      const products = await WomenModel.find();
+      const products = await WomenModel.find().limit(7);
       res.send(products);
     }
-  } catch (err) {
-    console.log(err);
-    res.send({ err: "something went wrong" });
+  } else {
+    try {
+      const products = await WomenModel.find({});
+      res.send(products);
+    } catch (err) {
+      res.send({ err: err });
+    }
   }
 });
 
@@ -95,19 +108,32 @@ productRouter.get("/men/:productID", async (req, res) => {
 });
 
 productRouter.get("/men", async (req, res) => {
-  try {
-    if (req.query) {
+  const { page_no } = req.query;
+    if (req.query.title) {
+    try {
       let val = req.query.title;
       val = new RegExp(val);
       const products = await MenModel.find({ title: val });
       res.send(products);
+    } catch (err) {
+      res.send({ err: "something went wrong" });
+    }
+  }else if (page_no) {
+    if (page_no > 1) {
+      let skips = 2 * (page_no - 1);
+      const products = await MenModel.find().skip(skips).limit(7);
+      res.send(products);
     } else {
-      const products = await MenModel.find({});
+      const products = await MenModel.find().limit(7);
       res.send(products);
     }
-  } catch (err) {
-    console.log(err);
-    res.send({ err: "something went wrong" });
+  } else {
+    try {
+      const products = await MenModel.find({});
+      res.send(products);
+    } catch (err) {
+      res.send({ err: err });
+    }
   }
 });
 
@@ -162,19 +188,32 @@ productRouter.get("/kid/:productID", async (req, res) => {
 });
 
 productRouter.get("/kid", async (req, res) => {
-  try {
-    if (req.query) {
+  const { page_no } = req.query;
+    if (req.query.title) {
+    try {
       let val = req.query.title;
       val = new RegExp(val);
       const products = await KidModel.find({ title: val });
       res.send(products);
+    } catch (err) {
+      res.send({ err: "something went wrong" });
+    }
+  }else if (page_no) {
+    if (page_no > 1) {
+      let skips = 2 * (page_no - 1);
+      const products = await KidModel.find().skip(skips).limit(7);
+      res.send(products);
     } else {
-      const products = await KidModel.find({});
+      const products = await KidModel.find().limit(7);
       res.send(products);
     }
-  } catch (err) {
-    console.log(err);
-    res.send({ err: "something went wrong" });
+  } else {
+    try {
+      const products = await KidModel.find({});
+      res.send(products);
+    } catch (err) {
+      res.send({ err: err });
+    }
   }
 });
 
